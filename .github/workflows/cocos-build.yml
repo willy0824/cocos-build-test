@@ -23,15 +23,16 @@ jobs:
 
     - name: Install Cocos Creator CLI
       run: |
-        mkdir cocos
-        cd cocos
-        wget https://download.cocos.com/CocosCreator/v3.6.3/CocosCreator_v3.6.3_Installer.deb
-        sudo dpkg -i CocosCreator_v3.6.3_Installer.deb
-        sudo apt-get install -f
+        mkdir -p ~/cocos
+        cd ~/cocos
+        wget -O cocos-cli.tar.gz https://github.com/cocos/cocos-engine/archive/refs/tags/3.8.4.tar.gz
+        tar -xzf cocos-cli.tar.gz
+        sudo mv cocos /usr/local/bin/cocos
+        cocos -v
 
     - name: Build Cocos Creator project
       run: |
-        /Applications/CocosCreator/Creator/3.6.3/CocosCreator --path . --build "platform=web-mobile"
+        cocos build --platform web-mobile --build-path ./build
 
     - name: Upload build artifact
       uses: actions/upload-artifact@v4
