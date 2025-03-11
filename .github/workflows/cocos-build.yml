@@ -23,11 +23,7 @@ jobs:
 
     - name: Install Cocos Creator CLI
       run: |
-        mkdir -p ~/cocos
-        cd ~/cocos
-        wget -O cocos-cli.tar.gz https://github.com/cocos/cocos-engine/archive/refs/tags/3.8.4.tar.gz
-        tar -xzf 3.8.4.tar.gz
-        sudo mv cocos /usr/local/bin/cocos
+        npm install -g cocos-creator-cli
         cocos -v
 
     - name: Build Cocos Creator project
