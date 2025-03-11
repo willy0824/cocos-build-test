@@ -1,0 +1,70 @@
+// main.ts
+import { _decorator, Component, Node, director } from 'cc';
+const { ccclass, property } = _decorator;
+
+@ccclass('Main')
+export class Main extends Component {
+    start() {
+        director.loadScene("HelloWorld");
+    }
+}
+
+// HelloWorld.ts
+import { _decorator, Component, Node, Label } from 'cc';
+const { ccclass, property } = _decorator;
+
+@ccclass('HelloWorld')
+export class HelloWorld extends Component {
+    @property(Label)
+    label: Label = null;
+
+    start() {
+        if (this.label) {
+            this.label.string = "Hello, Cocos!";
+        }
+    }
+}
+
+// HelloWorld.scene（需在 Cocos Creator 中建立場景）
+// - 在場景中新增一個節點，命名為 "Canvas"
+// - 新增一個 Label 節點，將 "HelloWorld" 腳本掛載
+// - 將 Label 綁定到 HelloWorld.ts 的 label 屬性
+
+// .github/workflows/build.yml
+name: Build Cocos Creator Project
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'
+
+    - name: Install Cocos Creator CLI
+      run: |
+        mkdir cocos
+        cd cocos
+        wget https://download.cocos.com/CocosCreator/v3.6.3/CocosCreator_v3.6.3_Installer.deb
+        sudo dpkg -i CocosCreator_v3.6.3_Installer.deb
+        sudo apt-get install -f
+
+    - name: Build Cocos Creator project
+      run: |
+        /Applications/CocosCreator/Creator/3.6.3/CocosCreator --path . --build "platform=web-mobile"
+
+    - name: Upload build artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: cocos-build
+        path: ./build
