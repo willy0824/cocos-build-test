@@ -26,7 +26,7 @@ jobs:
         mkdir -p ~/cocos
         cd ~/cocos
         wget -O cocos-cli.tar.gz https://github.com/cocos/cocos-engine/archive/refs/tags/3.8.4.tar.gz
-        tar -xzf cocos-cli.tar.gz
+        tar -xzf 3.8.4.tar.gz
         sudo mv cocos /usr/local/bin/cocos
         cocos -v
 
