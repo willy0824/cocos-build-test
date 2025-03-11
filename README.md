@@ -1,2 +1,2 @@
 # cocos-build-test
-1
+2
