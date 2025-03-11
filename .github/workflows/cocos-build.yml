@@ -1,36 +1,3 @@
-// main.ts
-import { _decorator, Component, Node, director } from 'cc';
-const { ccclass, property } = _decorator;
-
-@ccclass('Main')
-export class Main extends Component {
-    start() {
-        director.loadScene("HelloWorld");
-    }
-}
-
-// HelloWorld.ts
-import { _decorator, Component, Node, Label } from 'cc';
-const { ccclass, property } = _decorator;
-
-@ccclass('HelloWorld')
-export class HelloWorld extends Component {
-    @property(Label)
-    label: Label = null;
-
-    start() {
-        if (this.label) {
-            this.label.string = "Hello, Cocos!";
-        }
-    }
-}
-
-// HelloWorld.scene（需在 Cocos Creator 中建立場景）
-// - 在場景中新增一個節點，命名為 "Canvas"
-// - 新增一個 Label 節點，將 "HelloWorld" 腳本掛載
-// - 將 Label 綁定到 HelloWorld.ts 的 label 屬性
-
-// .github/workflows/build.yml
 name: Build Cocos Creator Project
 
 on:
